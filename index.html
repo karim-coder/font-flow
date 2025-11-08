@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ultimate Logo Font Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Source+Code+Pro:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=Space+Mono:wght@400;700&family=Roboto+Mono:wght@400;700&family=Inconsolata:wght@400;700&family=Courier+Prime:wght@400;700&family=Ubuntu+Mono:wght@400;700&family=Anonymous+Pro:wght@400;700&family=Inter:wght@400;700&family=Poppins:wght@400;700&family=Montserrat:wght@400;700&family=Raleway:wght@400;700&family=Work+Sans:wght@400;700&family=Orbitron:wght@400;700&family=Bebas+Neue&family=Oswald:wght@400;700&family=Righteous&family=Staatliches&family=Audiowide&family=Exo+2:wght@400;700&family=Russo+One&family=Play:wght@400;700&family=Electrolize&family=Aldrich&family=Share+Tech+Mono&family=Major+Mono+Display&family=VT323&family=Press+Start+2P&family=Archivo+Black&family=Barlow:wght@400;700&family=Quicksand:wght@400;700&family=Josefin+Sans:wght@400;700&family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&family=Cabin:wght@400;700&family=DM+Sans:wght@400;700&family=Lexend:wght@400;700&family=Karla:wght@400;700&family=Manrope:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=Space+Grotesk:wght@400;700&family=Red+Hat+Display:wght@400;700&family=Syncopate:wght@400;700&family=Saira:wght@400;700&family=Kanit:wght@400;700&family=Rajdhani:wght@400;700&family=Teko:wght@400;700&family=Chakra+Petch:wght@400;700&family=Bai+Jamjuree:wght@400;700&family=Prompt:wght@400;700&family=Share+Tech&family=Economica:wght@400;700&family=Michroma&family=Gruppo&family=Saira+Condensed:wght@400;700&family=Oxanium:wght@400;700&family=Wallpoet&family=Advent+Pro:wght@400;700&family=Titillium+Web:wght@400;700&family=Dosis:wght@400;700&family=Yantramanav:wght@400;700&family=Advent+Pro:wght@400;700&family=Quantico:wght@400;700&family=Syne:wght@400;700&family=Archivo:wght@400;700&family=Jura:wght@400;700&family=Saira+Semi+Condensed:wght@400;700&family=Varela+Round&family=Rubik:wght@400;700&family=Lato:wght@400;700&family=Noto+Sans:wght@400;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Outfit:wght@400;700&family=Mulish:wght@400;700&family=Hind:wght@400;700&family=Libre+Franklin:wght@400;700&family=Kumbh+Sans:wght@400;700&family=Schibsted+Grotesk:wght@400;700&family=Unbounded:wght@400;700&family=Chakra+Petch:wght@400;700&family=Orbitron:wght@400;700&family=Bruno+Ace&family=Monoton&family=Megrim&family=Turret+Road:wght@400;700&family=Black+Ops+One&family=Bungee&family=Fredoka+One&family=Righteous&family=Paytone+One&family=Passion+One:wght@400;700&family=Archivo+Narrow:wght@400;700&family=Fjalla+One&family=Anton&family=Pathway+Gothic+One&family=Squada+One&family=Questrial&family=ABeeZee:wght@400&family=Anybody:wght@400;700&family=Azeret+Mono:wght@400;700&family=Chivo+Mono:wght@400;700&family=Martian+Mono:wght@400;700&family=Sometype+Mono:wght@400;700&family=Overpass+Mono:wght@400;700&family=Red+Hat+Mono:wght@400;700&family=Cutive+Mono&family=Nova+Mono&family=Syne+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>✨ Ultimate Logo Font Showcase</h1>
+        <p class="subtitle">
+          Discover the perfect font for your brand • Click any card to copy the
+          font name
+        </p>
+      </div>
+
+      <div class="input-container">
+        <input
+          type="text"
+          id="logoText"
+          value="I<ARIM"
+          placeholder="Type your logo text..."
+          aria-label="Enter your logo text to preview in different fonts"
+        />
+        <button class="clear-btn" id="clearBtn" title="Clear text" aria-label="Clear the logo text input">×</button>
+      </div>
+
+      <div class="filter-container">
+        <button class="filter-btn active" data-filter="all" aria-label="Show all fonts">All Fonts</button>
+        <button class="filter-btn" data-filter="monospace" aria-label="Show only monospace fonts">Monospace</button>
+        <button class="filter-btn" data-filter="sans-serif" aria-label="Show only sans-serif fonts">Sans-Serif</button>
+        <button class="filter-btn" data-filter="display" aria-label="Show only display fonts">Display</button>
+      </div>
+
+      <div class="stats" id="stats">
+        Showing <span id="count">100</span> fonts
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="toast" id="toast">✓ Font name copied to clipboard!</div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

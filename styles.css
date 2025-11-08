@@ -1,0 +1,695 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+      circle at 20% 50%,
+      rgba(120, 119, 198, 0.3),
+      transparent 50%
+    ),
+    radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.3), transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(72, 118, 255, 0.2), transparent 50%);
+  pointer-events: none;
+  animation: drift 20s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(30px, -30px);
+  }
+  66% {
+    transform: translate(-20px, 20px);
+  }
+}
+
+/* Layout */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeInDown 0.8s ease;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  color: white;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 10px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 30px;
+}
+
+.input-container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 20px;
+  animation: fadeIn 1s ease 0.2s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#logoText {
+  width: 100%;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  padding: 20px 60px 20px 30px;
+  border: none;
+  border-radius: 60px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+#logoText:focus {
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), 0 0 0 4px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.clear-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.clear-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  animation: fadeIn 1s ease 0.4s both;
+}
+
+.filter-btn {
+  padding: 10px 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.stats {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  animation: fadeIn 1s ease 0.6s both;
+}
+
+.logo-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 35px 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.logo-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.1) 0%,
+    rgba(118, 75, 162, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.logo-card:hover::before {
+  opacity: 1;
+}
+
+.logo-card.copied {
+  animation: copyPulse 0.6s ease;
+}
+
+@keyframes copyPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+  }
+}
+
+.logo {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  color: #1a1a1a;
+  margin-bottom: 15px;
+  letter-spacing: 0.03em;
+  text-align: center;
+  word-break: break-word;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.logo-card:hover .logo {
+  color: #667eea;
+}
+
+.font-info {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.font-name {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px 18px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 20px;
+}
+
+.category {
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+.copy-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: scale(0.8) translateY(-10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.logo-card.copied .copy-indicator {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 50px;
+  box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+  z-index: 1000;
+  font-weight: 600;
+  font-size: 1rem;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .logo {
+    font-size: 2.5rem;
+  }
+
+  .filter-container {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Font Classes */
+.jetbrains {
+  font-family: "JetBrains Mono", monospace;
+}
+.fira {
+  font-family: "Fira Code", monospace;
+}
+.source {
+  font-family: "Source Code Pro", monospace;
+}
+.ibm {
+  font-family: "IBM Plex Mono", monospace;
+}
+.spacemono {
+  font-family: "Space Mono", monospace;
+}
+.roboto {
+  font-family: "Roboto Mono", monospace;
+}
+.inconsolata {
+  font-family: "Inconsolata", monospace;
+}
+.courier {
+  font-family: "Courier Prime", monospace;
+}
+.ubuntu {
+  font-family: "Ubuntu Mono", monospace;
+}
+.anonymous {
+  font-family: "Anonymous Pro", monospace;
+}
+.sharetech {
+  font-family: "Share Tech Mono", monospace;
+}
+.major {
+  font-family: "Major Mono Display", monospace;
+}
+.vt323 {
+  font-family: "VT323", monospace;
+}
+.azeret {
+  font-family: "Azeret Mono", monospace;
+}
+.chivo {
+  font-family: "Chivo Mono", monospace;
+}
+.martian {
+  font-family: "Martian Mono", monospace;
+}
+.sometype {
+  font-family: "Sometype Mono", monospace;
+}
+.overpass {
+  font-family: "Overpass Mono", monospace;
+}
+.redhatmono {
+  font-family: "Red Hat Mono", monospace;
+}
+.cutive {
+  font-family: "Cutive Mono", monospace;
+}
+.nova {
+  font-family: "Nova Mono", monospace;
+}
+.synemono {
+  font-family: "Syne Mono", monospace;
+}
+.inter {
+  font-family: "Inter", sans-serif;
+}
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+.raleway {
+  font-family: "Raleway", sans-serif;
+}
+.work {
+  font-family: "Work Sans", sans-serif;
+}
+.barlow {
+  font-family: "Barlow", sans-serif;
+}
+.quicksand {
+  font-family: "Quicksand", sans-serif;
+}
+.josefin {
+  font-family: "Josefin Sans", sans-serif;
+}
+.nunito {
+  font-family: "Nunito", sans-serif;
+}
+.cabin {
+  font-family: "Cabin", sans-serif;
+}
+.dmsans {
+  font-family: "DM Sans", sans-serif;
+}
+.lexend {
+  font-family: "Lexend", sans-serif;
+}
+.karla {
+  font-family: "Karla", sans-serif;
+}
+.manrope {
+  font-family: "Manrope", sans-serif;
+}
+.plusjakarta {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.spacegrotesk {
+  font-family: "Space Grotesk", sans-serif;
+}
+.redhat {
+  font-family: "Red Hat Display", sans-serif;
+}
+.saira {
+  font-family: "Saira", sans-serif;
+}
+.kanit {
+  font-family: "Kanit", sans-serif;
+}
+.rajdhani {
+  font-family: "Rajdhani", sans-serif;
+}
+.teko {
+  font-family: "Teko", sans-serif;
+}
+.chakra {
+  font-family: "Chakra Petch", sans-serif;
+}
+.bai {
+  font-family: "Bai Jamjuree", sans-serif;
+}
+.prompt {
+  font-family: "Prompt", sans-serif;
+}
+.economica {
+  font-family: "Economica", sans-serif;
+}
+.sairacond {
+  font-family: "Saira Condensed", sans-serif;
+}
+.titillium {
+  font-family: "Titillium Web", sans-serif;
+}
+.dosis {
+  font-family: "Dosis", sans-serif;
+}
+.yantramanav {
+  font-family: "Yantramanav", sans-serif;
+}
+.quantico {
+  font-family: "Quantico", sans-serif;
+}
+.syne {
+  font-family: "Syne", sans-serif;
+}
+.archivo {
+  font-family: "Archivo", sans-serif;
+}
+.jura {
+  font-family: "Jura", sans-serif;
+}
+.sairasemi {
+  font-family: "Saira Semi Condensed", sans-serif;
+}
+.varela {
+  font-family: "Varela Round", sans-serif;
+}
+.rubik {
+  font-family: "Rubik", sans-serif;
+}
+.lato {
+  font-family: "Lato", sans-serif;
+}
+.noto {
+  font-family: "Noto Sans", sans-serif;
+}
+.robotosans {
+  font-family: "Roboto", sans-serif;
+}
+.opensans {
+  font-family: "Open Sans", sans-serif;
+}
+.ptsans {
+  font-family: "PT Sans", sans-serif;
+}
+.outfit {
+  font-family: "Outfit", sans-serif;
+}
+.mulish {
+  font-family: "Mulish", sans-serif;
+}
+.hind {
+  font-family: "Hind", sans-serif;
+}
+.librefranklin {
+  font-family: "Libre Franklin", sans-serif;
+}
+.kumbh {
+  font-family: "Kumbh Sans", sans-serif;
+}
+.schibsted {
+  font-family: "Schibsted Grotesk", sans-serif;
+}
+.unbounded {
+  font-family: "Unbounded", sans-serif;
+}
+.oswald {
+  font-family: "Oswald", sans-serif;
+}
+.adventpro {
+  font-family: "Advent Pro", sans-serif;
+}
+.archivonarrow {
+  font-family: "Archivo Narrow", sans-serif;
+}
+.fjalla {
+  font-family: "Fjalla One", sans-serif;
+}
+.anton {
+  font-family: "Anton", sans-serif;
+}
+.pathway {
+  font-family: "Pathway Gothic One", sans-serif;
+}
+.squada {
+  font-family: "Squada One", sans-serif;
+}
+.questrial {
+  font-family: "Questrial", sans-serif;
+}
+.abeezee {
+  font-family: "ABeeZee", sans-serif;
+}
+.anybody {
+  font-family: "Anybody", sans-serif;
+}
+.play {
+  font-family: "Play", sans-serif;
+}
+.electrolize {
+  font-family: "Electrolize", sans-serif;
+}
+.aldrich {
+  font-family: "Aldrich", sans-serif;
+}
+.sharetech2 {
+  font-family: "Share Tech", sans-serif;
+}
+.comfortaa {
+  font-family: "Comfortaa", sans-serif;
+}
+.orbitron {
+  font-family: "Orbitron", sans-serif;
+}
+.bebas {
+  font-family: "Bebas Neue", sans-serif;
+}
+.righteous {
+  font-family: "Righteous", sans-serif;
+}
+.staatliches {
+  font-family: "Staatliches", sans-serif;
+}
+.audiowide {
+  font-family: "Audiowide", sans-serif;
+}
+.exo {
+  font-family: "Exo 2", sans-serif;
+}
+.russo {
+  font-family: "Russo One", sans-serif;
+}
+.michroma {
+  font-family: "Michroma", sans-serif;
+}
+.gruppo {
+  font-family: "Gruppo", sans-serif;
+}
+.oxanium {
+  font-family: "Oxanium", sans-serif;
+}
+.wallpoet {
+  font-family: "Wallpoet", sans-serif;
+}
+.syncopate {
+  font-family: "Syncopate", sans-serif;
+}
+.pressstart {
+  font-family: "Press Start 2P", monospace;
+}
+.brunoace {
+  font-family: "Bruno Ace", sans-serif;
+}
+.monoton {
+  font-family: "Monoton", sans-serif;
+}
+.megrim {
+  font-family: "Megrim", sans-serif;
+}
+.turret {
+  font-family: "Turret Road", sans-serif;
+}
+.blackops {
+  font-family: "Black Ops One", sans-serif;
+}
+.bungee {
+  font-family: "Bungee", sans-serif;
+}
+.fredoka {
+  font-family: "Fredoka One", sans-serif;
+}
+.paytone {
+  font-family: "Paytone One", sans-serif;
+}
+.passion {
+  font-family: "Passion One", sans-serif;
+}
+.archivoblack {
+  font-family: "Archivo Black", sans-serif;
+}
