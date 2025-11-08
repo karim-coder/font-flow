@@ -46,6 +46,34 @@ async function copyToClipboard(text) {
 // Global variables
 let fonts = [];
 let currentFilter = "all";
+let favorites = new Set();
+
+// Load favorites from localStorage
+function loadFavorites() {
+  const stored = localStorage.getItem("fontFavorites");
+  if (stored) {
+    favorites = new Set(JSON.parse(stored));
+  }
+}
+
+// Save favorites to localStorage
+function saveFavorites() {
+  localStorage.setItem("fontFavorites", JSON.stringify([...favorites]));
+}
+
+// Toggle favorite status
+function toggleFavorite(fontName) {
+  if (favorites.has(fontName)) {
+    favorites.delete(fontName);
+  } else {
+    favorites.add(fontName);
+  }
+  saveFavorites();
+  // Re-render if currently showing favorites
+  if (currentFilter === "favorites") {
+    renderFonts(currentFilter);
+  }
+}
 
 const input = document.getElementById("logoText");
 const clearBtn = document.getElementById("clearBtn");
@@ -69,12 +97,17 @@ async function loadFonts() {
 // Render fonts based on filter
 function renderFonts(filter = "all") {
   grid.innerHTML = "";
-  const filteredFonts =
-    filter === "all" ? fonts : fonts.filter((f) => f.category === filter);
+  let filteredFonts;
+  if (filter === "favorites") {
+    filteredFonts = fonts.filter((f) => favorites.has(f.name));
+  } else {
+    filteredFonts =
+      filter === "all" ? fonts : fonts.filter((f) => f.category === filter);
+  }
 
   statsCount.textContent = filteredFonts.length;
 
-  const currentText = input.value || "I<ARIM";
+  const currentText = input.value.trim() || "ABC";
 
   filteredFonts.forEach((font) => {
     const card = document.createElement("div");
@@ -91,12 +124,31 @@ function renderFonts(filter = "all") {
       <div class="category">${font.category}</div>
     `;
 
+    const favoriteBtn = document.createElement("button");
+    favoriteBtn.className = `favorite-btn ${
+      favorites.has(font.name) ? "favorited" : ""
+    }`;
+    favoriteBtn.innerHTML = favorites.has(font.name) ? "★" : "☆";
+    favoriteBtn.title = favorites.has(font.name)
+      ? "Remove from favorites"
+      : "Add to favorites";
+    favoriteBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent card click
+      toggleFavorite(font.name);
+      favoriteBtn.classList.toggle("favorited");
+      favoriteBtn.innerHTML = favorites.has(font.name) ? "★" : "☆";
+      favoriteBtn.title = favorites.has(font.name)
+        ? "Remove from favorites"
+        : "Add to favorites";
+    });
+
     const copyIndicator = document.createElement("div");
     copyIndicator.className = "copy-indicator";
     copyIndicator.textContent = "Copied!";
 
     card.appendChild(logoDiv);
     card.appendChild(fontInfo);
+    card.appendChild(favoriteBtn);
     card.appendChild(copyIndicator);
 
     card.addEventListener("click", async () => {
@@ -131,7 +183,7 @@ const debouncedUpdateLogos = debounce(function () {
 input.addEventListener("input", debouncedUpdateLogos);
 
 clearBtn.addEventListener("click", () => {
-  input.value = "I<ARIM";
+  input.value = "";
   input.focus();
   renderFonts(currentFilter);
 });
@@ -148,11 +200,13 @@ filterBtns.forEach((btn) => {
 // Initialize
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
+    loadFavorites();
     loadFonts();
   });
 } else {
   // Fallback for browsers that don't support Font Loading API
   setTimeout(() => {
+    loadFavorites();
     loadFonts();
   }, 100);
 }
